@@ -11,7 +11,7 @@ import {
   Button,
   Chip,
 } from "@mui/material"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Moment from 'moment-timezone';
 
 const PostCard = (props) => {
@@ -47,7 +47,7 @@ const PostCard = (props) => {
       <p dangerouslySetInnerHTML={{__html: content}} />
 
       <Box>
-        <a href={"/post/" + _id}>{comments.length} comments</a>
+        <Link to={"/post/" + _id}>{comments.length} comments</Link>
         - Topics: {topics.map((topic, index) => {
           return (<Chip key={index} label={topic} size="small" color="primary" onClick={() => window.location = "/topic/" + topic} />)
         })}

@@ -21,55 +21,80 @@ import UserContext from './utils/UserContext'
 import Aboutus from './pages/Aboutus'
 import Topic from './pages/Topic'
 
-function App () {
+function App() {
 
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
-  const [userState, setUserState] = useState({
-    loggedIn: false,
-    userData: {},
-    loading: true
-  })
+    const [isDarkTheme, setIsDarkTheme] = useState(false);
+    const changeTheme = () => {
+        setIsDarkTheme(!isDarkTheme);
+    };
 
-  const setLoggedIn = (loggedIn) => {
-    setUserState({ ...userState, loggedIn: loggedIn })
-  }
-
-  useEffect(() => {
-    UserAPI.getUser().then(user => {
-      setUserState({ loggedIn: true, userData: user, loading: false })
-    }).catch(err => {
-      setUserState({ ...userState, loading: false })
+    const [userState, setUserState] = useState({
+        loggedIn: localStorage.getItem('jwt') ? true : false,
+        userData: null,
+        loading: true
     })
-  }, [])
 
-  return (
-    <>
-      <UserContext.Provider value={{ ...userState, setLoggedIn: setLoggedIn }}>
-        {userState.loading
-? <></> 
-        : 
-            
-        <Router>
-          <Routes>
-            <Route exact path='/' element={userState.loggedIn ? <Home /> : <Landing />} />
-            <Route exact path="/logout" element={<Logout />} />
-            <Route exact path='/profile/:username' element={<Profile />} />
-            <Route exact path='/post/:id' element={<Post />} />
-            <Route exact path='/login' element={userState.loggedIn ? <Navigate to='/' /> : <Login />} />
-            <Route exact path='/register' element={<Register />} />
-            <Route exact path='/admin' element={<Admin />} />
-            <Route exact path='/about' element={<Aboutus />} />
-            <Route exact path='/topic/:topic' element={<Topic />} />
-          </Routes>
-        </Router>
-        
+    const setLoggedIn = (loggedIn) => {
+        setUserState({ ...userState, loggedIn: loggedIn })
+    }
+
+    useEffect(() => {
+        if(userState.userData == null) {
+            UserAPI.getUser().then(user => {
+                setUserState({ loggedIn: true, userData: user, loading: false })
+            }).catch(err => {
+                setUserState({ ...userState, loading: false })
+            })
+        } else {
+            setUserState({...userState, loading: false});
         }
-      </UserContext.Provider>
-    </>
-  )
+        
+    }, [])
+
+    const RootRoute = () => {
+        if (userState.loggedIn) {
+            if (userState.loading) {
+                return <h1>Loading</h1>
+            } else {
+                return <Home />
+            }
+        } else {
+            return <Landing />
+        }
+    }
+
+    const LoginRoute = () => {
+        if (userState.loggedIn) {
+            return <Navigate to="/" />
+        } else {
+            return <Login />
+        }
+    }
+
+    const RegisterRoute = () => {
+        if (userState.loggedIn) {
+            return <Navigate to="/" />
+        } else {
+            return <Register />
+        }
+    }
+
+    return (
+        <>
+        <UserContext.Provider value={{ ...userState, setLoggedIn: setLoggedIn }}>
+            <Router>
+                <Routes>
+                    <Route exact path='/' element={<RootRoute />} />
+                    <Route exact path='/login' element={<LoginRoute />} />
+                    <Route exact path='/register' element={<RegisterRoute />} />
+                    <Route exact path='/post/:id' element={<Post />} />
+                    <Route exact path='/profile/:username' element={<Profile />} />
+                    <Route exact path='/topic/:topic' element={<Topic />} />
+                </Routes>
+            </Router>
+        </UserContext.Provider>
+        </>
+    )
 }
 
 export default App

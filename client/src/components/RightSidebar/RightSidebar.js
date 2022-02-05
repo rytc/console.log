@@ -7,7 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
-import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
@@ -16,6 +15,7 @@ import Button from '@mui/material/Button'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ChatIcon from '@mui/icons-material/Chat'
 import SearchIcon from '@mui/icons-material/Search'
+import {Link} from 'react-router-dom'
 
 const RightSidebar = (props) => {
   const rightbarStyle = {
@@ -53,22 +53,22 @@ const RightSidebar = (props) => {
           <Box>
             <ListItem>
               <ListItemIcon><ChatIcon /></ListItemIcon>
-              <ListItemText><Link href='/topic/APIs' underline='none' sx={{ color: 'black' }}>APIs</Link></ListItemText>
+              <ListItemText><Link to='/topic/APIs' underline='none' sx={{ color: 'black' }}>APIs</Link></ListItemText>
             </ListItem>
             <Divider />
             <ListItem>
               <ListItemIcon><ChatIcon /></ListItemIcon>
-              <ListItemText><Link href='/topic/React' underline='none' sx={{ color: 'black' }}>React</Link></ListItemText>
+              <ListItemText><Link to='/topic/React' underline='none' sx={{ color: 'black' }}>React</Link></ListItemText>
             </ListItem>
             <Divider />
             <ListItem>
               <ListItemIcon><ChatIcon /></ListItemIcon>
-              <ListItemText><Link href='/topic/Javascript' underline='none' sx={{ color: 'black' }}>Javascript</Link></ListItemText>
+              <ListItemText><Link to='/topic/Javascript' underline='none' sx={{ color: 'black' }}>Javascript</Link></ListItemText>
             </ListItem>
             <Divider />
             <ListItem>
               <ListItemIcon><ChatIcon /></ListItemIcon>
-              <ListItemText><Link href='/topic/MongoDB' underline='none' sx={{ color: 'black' }}>MongoDB</Link></ListItemText>
+              <ListItemText><Link to='/topic/MongoDB' underline='none' sx={{ color: 'black' }}>MongoDB</Link></ListItemText>
             </ListItem>
           </Box>
           {/*
