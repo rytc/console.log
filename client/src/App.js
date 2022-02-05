@@ -87,9 +87,11 @@ function App() {
                     <Route exact path='/' element={<RootRoute />} />
                     <Route exact path='/login' element={<LoginRoute />} />
                     <Route exact path='/register' element={<RegisterRoute />} />
+                    <Route exact path="/logout" element={<Logout />} />
                     <Route exact path='/post/:id' element={<Post />} />
                     <Route exact path='/profile/:username' element={<Profile />} />
                     <Route exact path='/topic/:topic' element={<Topic />} />
+                    
                 </Routes>
             </Router>
         </UserContext.Provider>
