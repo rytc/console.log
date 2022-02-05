@@ -30,8 +30,7 @@ const PostCard = (props) => {
 
   const handleProfileClick = (event) => {
     event.preventDefault();
-    console.log(user);
-    navigate('/profile/' + user._id);
+    navigate('/profile/' + user.username);
   }
 
   return (

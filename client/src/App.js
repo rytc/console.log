@@ -56,7 +56,7 @@ function App () {
           <Routes>
             <Route exact path='/' element={userState.loggedIn ? <Home /> : <Landing />} />
             <Route exact path="/logout" element={<Logout />} />
-            <Route exact path='/profile/:id' element={<Profile />} />
+            <Route exact path='/profile/:username' element={<Profile />} />
             <Route exact path='/post/:id' element={<Post />} />
             <Route exact path='/login' element={userState.loggedIn ? <Navigate to='/' /> : <Login />} />
             <Route exact path='/register' element={<Register />} />

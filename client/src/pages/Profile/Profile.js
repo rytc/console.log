@@ -90,14 +90,14 @@ const Profile = (props) => {
   }
 
   useEffect(() => {
-    axios.get(`/api/user/${params.id}`, {
+    axios.get(`/api/user/${params.username}`, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('jwt')}`
       }
     })
       .then(res => {
         setProfileState({ ...profileState, userData: { ...profileState.userData, ...res.data } })
-        axios.get(`/api/post/user/${params.id}`, {
+        axios.get(`/api/post/user/${res.data._id}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('jwt')}`
           }

@@ -28,8 +28,8 @@ router.get('/user', passport.authenticate('jwt'), (req, res) => {
   res.json(req.user)
 })
 
-router.get('/user/:id', passport.authenticate('jwt'), (req, res) => {
-  User.findById(req.params.id)
+router.get('/user/:username', passport.authenticate('jwt'), (req, res) => {
+  User.findOne({username: req.params.username})
   .then(user => {
     res.json(user)
   }).catch(err => {
