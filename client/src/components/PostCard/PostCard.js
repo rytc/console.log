@@ -49,7 +49,7 @@ const PostCard = (props) => {
       <Box>
         <Link to={"/post/" + _id}>{comments.length} comments</Link>
         - Topics: {topics.map((topic, index) => {
-          return (<Chip key={index} label={topic} size="small" color="primary" onClick={() => window.location = "/topic/" + topic} />)
+          return (<Chip key={index} label={topic} size="small" color="primary" onClick={() => navigate("/topic/" + topic)} />)
         })}
       </Box>
     </Box>
