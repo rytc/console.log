@@ -2,9 +2,10 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import SplashImage from '../../images/splash.jpg'
-
+import useAuth from '../../utils/AuthContext'
 const Landing = (props) => {
   const navigate = useNavigate()
+  const auth = useAuth();
 
   const boxStyle = {
     display: 'block',
@@ -45,7 +46,7 @@ const Landing = (props) => {
       <Box sx={middleBoxStyle}>
         <h1>console.log</h1>
         <h4>a social network for web developers</h4>
-        <p>Collaborate, network, code!</p>
+        <p>Collaborate, network, code! {auth ? "LoggedIn" : "NotLoggedIn"}</p>
         <Button color='primary' sx={{ mr: 4 }} variant='contained' onClick={handleLoginClick}>Login</Button>
         <Button color='secondary' variant='contained' onClick={handleRegisterClick}>Register</Button>
 

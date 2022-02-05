@@ -13,9 +13,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import UserAPI from '../../utils/UserAPI'
-import AuthContext from '../../utils/AuthContext'
 import axios from 'axios'
-import UserContext from '../../utils/UserContext'
+import useAuth from '../../utils/AuthContext'
 import { useContext } from 'react'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 import loginImages from '../../images/login.jpg'
@@ -37,7 +36,7 @@ const theme = createTheme()
 
 export default function SignInSide() {
     const navigate = useNavigate()
-    const userContext = useContext(UserContext);
+    const {login} = useAuth();
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -46,19 +45,24 @@ export default function SignInSide() {
             username: formData.get('username'),
             password: formData.get('password')
         }
-        /*
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
-        }); */
-        axios.post('/api/user/login', userData).then(res => {
-            localStorage.setItem('jwt', res.data)
-            userContext.setLoggedIn(true);
-            navigate('/');
+        login(userData.username, userData.password).then(() => {
+            navigate('/feed', {replace: true});
         }).catch(err => {
             alert("Invalid username or password");
             console.log(err);
         })
+        /*
+        console.log({
+          username: data.get('username'),
+          password: data.get('password'),
+        }); 
+        axios.post('/api/user/login', userData).then(res => {
+            localStorage.setItem('jwt', res.data)
+            navigate('/');
+        }).catch(err => {
+            alert("Invalid username or password");
+            console.log(err);
+        })*/
     }
 
     return (

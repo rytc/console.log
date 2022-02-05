@@ -5,17 +5,15 @@ import {
 } from "@mui/material"
 import { useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import UserContext from "../../utils/UserContext";
-
+import useAuth from "../../utils/AuthContext"
 
 const Logout = (props) => {
     const navigate = useNavigate();
-    const userContext = useContext(UserContext);
+    const {logout} = useAuth();
 
     useEffect(() => {
-        localStorage.removeItem('jwt');
-        userContext.setLoggedIn(false);
-        navigate('/');
+        logout();
+        navigate('/', {replace: true});
     })
 
     return (
