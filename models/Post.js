@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
+const Comment = require('./Comment.js');
 
 const Post = new Schema({
     content: {
@@ -15,10 +16,7 @@ const Post = new Schema({
         ref: 'User',
         required: true
     },
-    comments: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Comment',
-    }]
+    comments: [Comment]
 }, { timestamps: true })
 
 Post.virtual('commentCount').get(function() {

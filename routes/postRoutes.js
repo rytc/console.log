@@ -48,7 +48,6 @@ router.get('/post/:id', passport.authenticate('jwt'), async function (req, res) 
   try {
     const post = await Post.findById(req.params.id)
       .populate('user')
-      .populate('comments')
       .populate({ path: 'comments', populate: { path: 'user' } })
     res.json(post)
   } catch (err) {
@@ -63,7 +62,6 @@ router.get('/post/user/:id', passport.authenticate('jwt'), async function (req, 
     try {
         const post = await Post.find({ user: req.params.id }).populate('user')
             .populate('user')
-            .populate('comments')
             .populate({ path: 'comments', populate: { path: 'user' } });
         res.json(post);
     } catch (err) {
@@ -90,19 +88,21 @@ router.post('/post', passport.authenticate('jwt'), function ({ body, user }, res
 })
 
 router.post('/post/comment', passport.authenticate('jwt'), (req, res) => {
-  Comment.create({ body: req.body.content, post: req.body.postId, user: req.user.id })
-    .then(comment => {
-      Post.findByIdAndUpdate(req.body.postId, { $push: { comments: comment._id } })
-        .then(post => {
-          res.json(comment)
-        }
-        )
-    }).catch(err => {
-      console.log('!! ERROR: failed to create comment')
-      console.log(err)
-      console.log(req.body)
-      res.status(500).json({ error: 'failed to create comment' })
-    })
+  Post.findOneAndUpdate(
+    {
+      _id: req.body.postId
+    }, {
+      $push: {comments: {
+        body: req.body.content,
+        post: req.body.postId,
+        user: req.user.id
+      }
+    }
+  }).then(comment => {
+    res.json(comment);
+  }).catch(err => {
+    res.status(400).json({error: "Failed to post comment"});
+  })
 })
 
 // DELETE one post
