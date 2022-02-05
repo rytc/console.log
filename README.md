@@ -9,7 +9,9 @@
 
 ## Description
 
-Console.log was our 3rd group project for our web development bootcamp with UC Irvine. This fork is my redesign of the front end with a professional design and additional features.
+Console.log is a social media site to cater to web developers.
+
+This was our 3rd group project for our web development bootcamp with UC Irvine. This fork is my redesign of the front end with a professional design and additional features.
 
 
 [Original project can be found here](https://github.com/g-broadhead/console.log)
