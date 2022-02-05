@@ -53,6 +53,7 @@ export default function SignInSide() {
         }); */
         axios.post('/api/user/login', userData).then(res => {
             localStorage.setItem('jwt', res.data)
+            userContext.setLoggedIn(true);
             navigate('/');
         }).catch(err => {
             alert("Invalid username or password");
