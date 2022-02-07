@@ -20,6 +20,49 @@ import axios from 'axios'
 
 const Home = (props) => {
   const [pagePosts, setPagePosts] = useState([]);
+  const [postState, setPostState] = useState({ content: '', topics: [] });
+
+  const handlePostSubmit = (event) => {
+    event.preventDefault();
+    if (postState.topics.length == 0) {
+      alert("Must select atleast 1 topic before posting.");
+      return;
+    }
+
+    if (postState.content.length == 0) {
+      alert("Post must include some text.");
+      return;
+    }
+
+    //console.log(postState.content);
+    axios.post('/api/post',
+      {
+        content: postState.content,
+        topics: postState.topics
+      },
+      {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('jwt')}` }
+      }).then((res) => {
+        setPostState({ ...postState, content: '' });
+        window.location = '/';
+      }).catch(err => {
+        console.log(err)
+        alert("Failed to make post.");
+      })
+  }
+
+  const handlePostChange = ({ target: { name, value } }) => setPostState({ ...postState, content: value })
+
+  const handleTopicChange = ({ target: { name, value } }) => {
+    let topicsCopy = JSON.parse(JSON.stringify(postState.topics));
+    let item = topicsCopy.find((item) => item === name)
+    if (item) {
+      topicsCopy.splice(topicsCopy.indexOf(name), 1);
+    } else {
+      topicsCopy.push(name);
+    }
+    setPostState({ ...postState, topics: topicsCopy });
+  }
 
   useEffect(() => {
     axios.get('/api/post', {
@@ -43,33 +86,41 @@ const Home = (props) => {
           gridTemplateColumns: 'repeat(5, 1fr)',
         }}>
 
-          
-          <Box sx={{gridColumn: 'span 5'}}>
+
+          <Box sx={{ gridColumn: 'span 5' }}>
             <Typography variant="h4">New post</Typography>
-          <TextField
-            fullWidth
-            sx={{ mt: "1em" }}
-            id="outlined-textarea fullWidth"
-            label="Send a Post"
-            multiline
-            rows={4}
-            placeholder="Text"
-            //onChange={handlePostChange}
-            className="backgroundColor"
-          // sx={textfieldStyle}
-          />
-          <FormControlLabel label="APIs" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox color="success" name="APIs" />} />
-          <FormControlLabel label="React" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox name="React" color="default" />} />
-          <FormControlLabel label="Javascript" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox name="Javascript" color="secondary" />} />
-          <FormControlLabel label="MongoDB" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox name="MongoDB" color="warning" />} />
+            <TextField
+              fullWidth
+              sx={{ mt: "1em" }}
+              id="outlined-textarea fullWidth"
+              label="Send a Post"
+              multiline
+              rows={4}
+              placeholder="Text"
+              onChange={handlePostChange}
+              className="backgroundColor"
+            />
+            <FormControlLabel label="APIs" componentsProps={{ typography: { variant: 'h6' } }} control={
+              <Checkbox color="success" name="APIs" onChange={handleTopicChange} />
+              } />
+
+            <FormControlLabel label="React" componentsProps={{ typography: { variant: 'h6' } }} control={
+              <Checkbox name="React" color="default" onChange={handleTopicChange} />
+              } />
+            <FormControlLabel label="Javascript" componentsProps={{ typography: { variant: 'h6' } }} control={
+              <Checkbox name="Javascript" color="secondary" onChange={handleTopicChange} />
+              } />
+            <FormControlLabel label="MongoDB" componentsProps={{ typography: { variant: 'h6' } }} control={
+              <Checkbox name="MongoDB" color="warning" onChange={handleTopicChange} />
+              } />
 
 
-          <Button variant="contained" endIcon={<SendIcon />} >
-            Send
-          </Button>
+            <Button variant="contained" endIcon={<SendIcon />} onClick={handlePostSubmit}>
+              Send
+            </Button>
           </Box>
 
-          <Box sx={{gridColumn: 'span 4'}}>
+          <Box sx={{ gridColumn: 'span 4' }}>
             {pagePosts.map((elem, i) => <PostCard key={i} post={elem} />)}
           </Box>
           <Box>World This is atest of the second box, I wonder how big it is</Box>
