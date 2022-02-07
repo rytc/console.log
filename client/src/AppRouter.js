@@ -10,8 +10,8 @@ import { useContext, useEffect, useState } from 'react'
 import Aboutus from './pages/Aboutus'
 import Topic from './pages/Topic'
 import { useNavigate, Route, Navigate, Routes, BrowserRouter as Router } from 'react-router-dom'
-import useUserContext from './utils/UserContext'
-import useAuth from './utils/AuthContext'
+import useUserContext from './hooks/UserContext'
+import useAuth from './hooks/AuthContext'
 
 
 const RedirectIfLoggedin = ({children}) => {

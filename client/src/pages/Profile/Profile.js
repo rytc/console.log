@@ -18,7 +18,7 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import { sizing } from '@mui/system';
 import { useParams } from 'react-router-dom';
-import useUserContext from '../../utils/UserContext'
+import useUserContext from '../../hooks/UserContext'
 
 const Profile = (props) => {
   const params = useParams();

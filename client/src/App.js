@@ -1,8 +1,8 @@
 import {useState} from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
-import { AuthProvider } from './utils/AuthContext/AuthContext'
-import { UserDataProvider } from './utils/UserContext/UserContext'
+import { AuthProvider } from './hooks/AuthContext/AuthContext'
+import { UserDataProvider } from './hooks/UserContext/UserContext'
 
 // Pages
 import AppRouter from './AppRouter'

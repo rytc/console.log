@@ -14,11 +14,11 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import UserAPI from '../../utils/UserAPI'
 import axios from 'axios'
-import useAuth from '../../utils/AuthContext'
+import useAuth from '../../hooks/AuthContext'
 import { useContext } from 'react'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 import loginImages from '../../images/login.jpg'
-import useUserContext from '../../utils/UserContext'
+import useUserContext from '../../hooks/UserContext'
 function Copyright(props) {
     return (
         <Typography variant='body2' color='text.secondary' align='center' {...props}>

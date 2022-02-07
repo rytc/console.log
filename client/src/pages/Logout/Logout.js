@@ -5,8 +5,8 @@ import {
 } from "@mui/material"
 import { useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import useAuth from "../../utils/AuthContext"
-import useUserContext from '../../utils/UserContext'
+import useAuth from "../../hooks/AuthContext"
+import useUserContext from '../../hooks/UserContext'
 
 const Logout = (props) => {
     const navigate = useNavigate();

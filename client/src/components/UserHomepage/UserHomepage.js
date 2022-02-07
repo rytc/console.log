@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import PostCard from "../PostCard";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import './UserHomepage.css'
-import useUserData from '../../utils/UserContext'
+import useUserData from '../../hooks/UserContext'
 
 const UserHomepage = (props) => {
     const userData = useUserData();

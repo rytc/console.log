@@ -2,7 +2,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import SplashImage from '../../images/splash.jpg'
-import useAuth from '../../utils/AuthContext'
+import useAuth from '../../hooks/AuthContext'
 const Landing = (props) => {
   const navigate = useNavigate()
   const auth = useAuth();
