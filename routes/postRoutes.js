@@ -30,7 +30,7 @@ function nl2br (str, is_xhtml) {
 // GET all posts
 // user must be logged in
 router.get('/post', passport.authenticate('jwt'), async function (req, res) {
-  const posts = await Post.find().populate('user')
+  const posts = await Post.find().sort({'createdAt': -1}).populate('user')
   res.json(posts)
 })
 
