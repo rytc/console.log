@@ -25,6 +25,9 @@ const useUserData = () => {
                     res(userData);
                 }
             })
+        },
+        clearUserData() {
+            setUserData(null);
         }
     }
 }

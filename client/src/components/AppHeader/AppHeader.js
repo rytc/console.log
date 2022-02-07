@@ -13,15 +13,13 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import { useNavigate } from 'react-router-dom'
 
-import useUserData from '../../utils/UserContext'
+import useUserContext from '../../utils/UserContext'
 
 const pages = ['Home', 'Profile', 'Admin', 'About Us']
 
 const AppHeader = (props) => {
-    const {getUserData} = useUserData();
+    const {userData} = useUserContext();
     const navigate = useNavigate();
-
-    const [userData, setUserData] = useState({username: '...', avatar: ''})
 
     const headerStyle = {
         display: 'grid',
@@ -31,12 +29,6 @@ const AppHeader = (props) => {
         bgcolor: 'primary.light',
         width: '100%'
     }
-
-    useEffect(() => {
-        getUserData(localStorage.getItem('jwt')).then(user => {
-            setUserData({username: user.username, avatar: user.avatar});
-        })
-    }, []);
 
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)

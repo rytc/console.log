@@ -18,7 +18,7 @@ import useAuth from '../../utils/AuthContext'
 import { useContext } from 'react'
 import { BrowserRouter, useNavigate } from 'react-router-dom'
 import loginImages from '../../images/login.jpg'
-
+import useUserContext from '../../utils/UserContext'
 function Copyright(props) {
     return (
         <Typography variant='body2' color='text.secondary' align='center' {...props}>
@@ -35,7 +35,8 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignInSide() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const userContext = useUserContext();
     const {login} = useAuth();
 
     const handleSubmit = (event) => {
@@ -46,23 +47,13 @@ export default function SignInSide() {
             password: formData.get('password')
         }
         login(userData.username, userData.password).then(() => {
-            navigate('/feed', {replace: true});
+            userContext.getUserData(localStorage.getItem('jwt')).then(user => {
+                navigate('/feed', {replace: true});
+            })
         }).catch(err => {
             alert("Invalid username or password");
             console.log(err);
         })
-        /*
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
-        }); 
-        axios.post('/api/user/login', userData).then(res => {
-            localStorage.setItem('jwt', res.data)
-            navigate('/');
-        }).catch(err => {
-            alert("Invalid username or password");
-            console.log(err);
-        })*/
     }
 
     return (

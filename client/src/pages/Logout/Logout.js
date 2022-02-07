@@ -6,14 +6,19 @@ import {
 import { useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import useAuth from "../../utils/AuthContext"
+import useUserContext from '../../utils/UserContext'
 
 const Logout = (props) => {
     const navigate = useNavigate();
+    const userData = useUserContext();
     const {logout} = useAuth();
 
     useEffect(() => {
-        logout();
-        navigate('/', {replace: true});
+        logout().then(() => {
+            userData.clearUserData();
+            //navigate('/', {replace: true});
+            window.location = '/';
+        });
     })
 
     return (

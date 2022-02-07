@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const AuthContext = createContext();
 
-const useAuth = () => {
+const useAuthbleh = () => {
     const [auth, setAuth] = useState(localStorage.getItem('jwt') ? true : false);
 
     return {
@@ -30,7 +30,7 @@ const useAuth = () => {
 }
 
 export function AuthProvider({children}) {
-    const auth = useAuth();
+    const auth = useAuthbleh();
 
     return (
         <AuthContext.Provider value={auth}>

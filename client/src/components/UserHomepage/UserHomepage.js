@@ -31,8 +31,6 @@ const UserHomepage = (props) => {
         overflow: 'auto'
     }
 
-    const userContext = useContext(UserContext);
-
     const navigate = useNavigate();
     const [postState, setPostState] = useState({ content: '', topics: [] });
     const [pagePosts, setPagePosts] = useState([]);
@@ -70,9 +68,6 @@ const UserHomepage = (props) => {
         })
     
     }, [])
-
-
-
 
     const handlePostSubmit = (event) => {
         event.preventDefault();
