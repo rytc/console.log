@@ -21,7 +21,6 @@ const PostCard = (props) => {
   const postStyle = {
     border: "1px solid black",
     borderRadius: "8px",
-    boxShadow: "4px 4px 8px #000",
     padding: "1em",
     marginBottom: "2em",
     bgcolor: "white",

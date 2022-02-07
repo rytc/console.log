@@ -4,10 +4,14 @@ import Container from '@mui/material/Container'
 import MainSidebar from '../../components/MainSidebar'
 import RightSidebar from '../../components/RightSidebar'
 import UserHomepage from '../../components/UserHomepage'
-import Box from '@mui/material/Box'
-import { spacing, flexbox, palette } from '@mui/system'
-import Grid from '@mui/material/Grid'
+import {
+  Grid, Box, FormControlLabel, Typography, TextField, Button, Checkbox
+} from '@mui/material'
+import {
+  Send as SendIcon
+} from '@mui/icons-material'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import PostCard from '../../components/PostCard'
 
 // Axios
 import { useEffect, useState } from 'react'
@@ -15,44 +19,65 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 
 const Home = (props) => {
-  const mainBox = {
-    display: 'inline-flex',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'flex-start',
-    mt:1,
-    ml:1
+  const [pagePosts, setPagePosts] = useState([]);
 
-    
-  }
+  useEffect(() => {
+    axios.get('/api/post', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+      }
+    }).then(({ data }) => {
+      setPagePosts(data);
+    })
 
-  const rightbarStyle = {
-    // mr: 0,
-    margin: 'auto',
-    bgcolor: 'info.light'
-  }
-  const homepageStyle = {
-    width: '100%',
-    // margin: 'auto',
-    // mt: 4
-    ml: 6
+  }, [])
 
-  }
+  return (
+    <>
+      <AppHeader />
+      <Container>
+        <Box sx={{
+          display: 'grid',
+          columnGap: 3,
+          rowGap: 2,
+          gridTemplateColumns: 'repeat(5, 1fr)',
+        }}>
 
-    return (
-      <>
-        <AppHeader />
-        <Grid className = 'wrap' container spacing={2} sx={mainBox}>
-            <Grid item xs={11} sm={8} md={9} lg={10}>
-                <UserHomepage sx={homepageStyle} />
-            </Grid>
-            <Grid item lg={2} md={2} sm={3} sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <RightSidebar sx={rightbarStyle}/>
-            </Grid>
-        </Grid>
-        <AppFooter />
-        </>
-    );
+          
+          <Box sx={{gridColumn: 'span 5'}}>
+            <Typography variant="h4">New post</Typography>
+          <TextField
+            fullWidth
+            sx={{ mt: "1em" }}
+            id="outlined-textarea fullWidth"
+            label="Send a Post"
+            multiline
+            rows={4}
+            placeholder="Text"
+            //onChange={handlePostChange}
+            className="backgroundColor"
+          // sx={textfieldStyle}
+          />
+          <FormControlLabel label="APIs" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox color="success" name="APIs" />} />
+          <FormControlLabel label="React" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox name="React" color="default" />} />
+          <FormControlLabel label="Javascript" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox name="Javascript" color="secondary" />} />
+          <FormControlLabel label="MongoDB" componentsProps={{ typography: { variant: 'h6' } }} control={<Checkbox name="MongoDB" color="warning" />} />
+
+
+          <Button variant="contained" endIcon={<SendIcon />} >
+            Send
+          </Button>
+          </Box>
+
+          <Box sx={{gridColumn: 'span 4'}}>
+            {pagePosts.map((elem, i) => <PostCard key={i} post={elem} />)}
+          </Box>
+          <Box>World This is atest of the second box, I wonder how big it is</Box>
+        </Box>
+      </Container>
+      <AppFooter />
+    </>
+  );
 }
 
 export default Home

@@ -1,26 +1,24 @@
-import './App.css'
 import {useState} from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
-import UserAPI from './utils/UserAPI'
-import { default as useAuth, AuthProvider } from './utils/AuthContext/AuthContext'
+import { AuthProvider } from './utils/AuthContext/AuthContext'
 import { UserDataProvider } from './utils/UserContext/UserContext'
-
-// Components
-import AppHeader from './components/AppHeader'
-import AppFooter from './components/AppFooter'
 
 // Pages
 import AppRouter from './AppRouter'
+import { CssBaseline } from '@mui/material'
 
 
 function App() {
     return (
+        <>
+        <CssBaseline />
         <AuthProvider>
             <UserDataProvider>
                 <AppRouter />
             </UserDataProvider>
         </AuthProvider>
+        </>
     )
 }
 

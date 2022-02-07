@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -15,20 +15,9 @@ import { useNavigate } from 'react-router-dom'
 
 import useUserContext from '../../utils/UserContext'
 
-const pages = ['Home', 'Profile', 'Admin', 'About Us']
-
 const AppHeader = (props) => {
     const {userData} = useUserContext();
     const navigate = useNavigate();
-
-    const headerStyle = {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        borderTop: '1px solid #AAA',
-        marginTop: '2em',
-        bgcolor: 'primary.light',
-        width: '100%'
-    }
 
     const [anchorElNav, setAnchorElNav] = useState(null)
     const [anchorElUser, setAnchorElUser] = useState(null)
@@ -64,7 +53,7 @@ const AppHeader = (props) => {
     }
 
     return (
-        <AppBar style={{ background: '#03a9f4' }} position='static'>
+        <AppBar sx={{mb: '2em'}} position='static'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Typography
