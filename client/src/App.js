@@ -15,11 +15,6 @@ import AppRouter from './AppRouter'
 
 
 function App() {
-    const [isDarkTheme, setIsDarkTheme] = useState(false);
-    const changeTheme = () => {
-        setIsDarkTheme(!isDarkTheme);
-    };
-
     return (
         <AuthProvider>
             <UserDataProvider>

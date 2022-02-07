@@ -20,7 +20,6 @@ import Report from "@mui/icons-material/Report";
 import UserContext from "../../utils/UserContext";
 import PostCard from "../PostCard";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
-import BackgroundImage from '../../images/Background.jpg'
 import './UserHomepage.css'
 import useUserData from '../../utils/UserContext'
 
@@ -51,7 +50,6 @@ const UserHomepage = (props) => {
         textAlign: 'center',
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${BackgroundImage})`,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPositionX: '45%',
