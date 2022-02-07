@@ -13,13 +13,13 @@ import {
 } from "@mui/material"
 import axios from "axios";
 import { useContext } from 'react';
-import UserContext from "../../utils/UserContext";
+import useUserContext from "../../utils/UserContext";
 import Moment from 'moment-timezone'
 
 
 
 const PostCard = (props) => {
-    const userContext = useContext(UserContext);
+    const {userData} = useUserContext();
     const { user, createdAt, content, topics, comments, _id } = props.post;
 
     const postStyle = {
@@ -64,7 +64,7 @@ const PostCard = (props) => {
             </Box>
             {/*This conditional is to make sure the delete button only shows
             for the currently logged in user's posts */}
-            {user._id == userContext.userData._id &&
+            {user._id == userData._id &&
                 <Button
                     variant="contained"
                     sx={{ margin: "1em" }}

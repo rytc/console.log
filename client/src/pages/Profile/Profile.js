@@ -18,10 +18,11 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import { sizing } from '@mui/system';
 import { useParams } from 'react-router-dom';
-import UserContext from '../../utils/UserContext'
+import useUserContext from '../../utils/UserContext'
 
 const Profile = (props) => {
   const params = useParams();
+  const {userData} = useUserContext();
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -131,7 +132,7 @@ const Profile = (props) => {
   // Avatar Upload Function
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
-    if (params.id == userContext.userData._id) {
+    if (params.id == userData._id) {
       setOpen(true)
     }
   };
@@ -165,7 +166,6 @@ const Profile = (props) => {
     posts: []
   })
 
-  const userContext = useContext(UserContext);
 
   return (
     <>
@@ -218,7 +218,7 @@ const Profile = (props) => {
             <h4>Instagram: {profileState.userData.instagram}</h4>
             <h4>Twitter: {profileState.userData.twitter}</h4>
             <>
-              {params.id == userContext.userData._id &&
+              {params.id == userData._id &&
                 <Button
                   onClick={profileHandleOpen}
                   sx={{ width: '100%' }}
