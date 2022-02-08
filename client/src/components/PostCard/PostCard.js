@@ -13,6 +13,7 @@ import {
 } from "@mui/material"
 import { useNavigate, Link } from "react-router-dom";
 import Moment from 'moment-timezone';
+import ReactMarkdown from 'react-markdown'
 
 const PostCard = (props) => {
   const { user, createdAt, content, topics, comments, _id } = props.post;
@@ -43,7 +44,7 @@ const PostCard = (props) => {
         </Box>
 
       </Box>
-      <p dangerouslySetInnerHTML={{__html: content}} />
+      <ReactMarkdown>{content}</ReactMarkdown>
 
       <Box>
         <Link to={"/post/" + _id}>{comments.length} comments</Link>
